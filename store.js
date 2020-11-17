@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 //Add Reducer
-// import testReducer from "./lib/slices/testSlice";
+import userReducer from "./lib/slices/userSlice";
 
 export default configureStore({
-  reducer: {},
+  reducer: {
+    user: userReducer,
+  },
   devTools: true,
 });
