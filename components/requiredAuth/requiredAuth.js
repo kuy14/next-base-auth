@@ -9,7 +9,6 @@ const requiredAuth = (Component) => {
     if (userState.length !== 0) {
       return <Component />;
     }
-
     return <LoginPage />;
   };
 
