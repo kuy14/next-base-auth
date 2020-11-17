@@ -8,8 +8,8 @@ import {
   Message,
   Segment,
 } from "semantic-ui-react";
-import { logUserIn } from "../../lib/slice/logUserIn";
-import useLoginForm from "../../lib/useLoginForm";
+import { logUserIn } from "../../lib/slices/userSlice";
+import useLoginForm from "../../lib/form/useLoginForm";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -33,12 +33,14 @@ const LoginForm = () => {
             <Form.Input
               fluid
               icon="user"
+              name="username"
               iconPosition="left"
               placeholder="E-mail address"
             />
             <Form.Input
               fluid
               icon="lock"
+              name="password"
               iconPosition="left"
               placeholder="Password"
               type="password"
