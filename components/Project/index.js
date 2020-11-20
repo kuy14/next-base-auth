@@ -9,7 +9,7 @@ import moment from "moment";
 import TeamModal from "./modal";
 import setHours from "date-fns/setHours";
 import setMinutes from "date-fns/setMinutes";
-import { setEvent } from "../../lib/slices/eventSlice";
+import { setEvent, setTeamGroup } from "../../lib/slices/eventSlice";
 
 export const CreateProject = () => {
   const dispatch = useDispatch();
@@ -17,10 +17,12 @@ export const CreateProject = () => {
   const event = useSelector((state) => state.events.events);
 
   //input state
+  const [projectId, setProjectId] = useState("");
   const [projectTitle, setProjectTitle] = useState("");
   const [projectType, setProjectType] = useState("");
   const [projectBudget, setProjectBudget] = useState("");
   const [projectDescription, setProjectDescription] = useState("");
+
   const [startDate, setStartDate] = useState(
     setHours(setMinutes(new Date(), 0), 0)
   );
@@ -43,7 +45,7 @@ export const CreateProject = () => {
     e.preventDefault();
     dispatch(
       setEvent({
-        id: 15,
+        id: projectId,
         user: "test",
         title: projectTitle,
         start: startDate,
@@ -81,6 +83,18 @@ export const CreateProject = () => {
             <Form.Input
               fluid
               icon="user"
+              name="projectId"
+              iconPosition="left"
+              placeholder="Project Id"
+              onChange={(event) => {
+                setProjectId(event.target.value);
+              }}
+            ></Form.Input>
+          </Grid.Column>
+          <Grid.Column>
+            <Form.Input
+              fluid
+              icon="file text"
               name="projectName"
               iconPosition="left"
               placeholder="Project Name"
@@ -89,9 +103,11 @@ export const CreateProject = () => {
               }}
             ></Form.Input>
           </Grid.Column>
+
           <Grid.Column>
             <Form.Input
               fluid
+              icon="tag"
               name="projectType"
               iconPosition="left"
               placeholder="Project Type"
@@ -103,6 +119,7 @@ export const CreateProject = () => {
           <Grid.Column>
             <Form.Input
               fluid
+              icon="money"
               name="projectBudget"
               iconPosition="left"
               placeholder="Project Budget"

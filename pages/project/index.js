@@ -44,26 +44,31 @@ const Project = () => {
             <Segment>
               <Container>
                 <Item.Group divided>
-                  <Item>
-                    <Item.Content>
-                      <Item.Header as="a">Content Header</Item.Header>
-                      <Item.Meta>
-                        <span>Date</span>
-                        <span>Category</span>
-                      </Item.Meta>
-                      <Item.Description>
-                        A description which may flow for several lines and give
-                        context to the content.
-                      </Item.Description>
-                      <Item.Extra>
-                        <Button floated="right" primary>
-                          Primary
-                          <Icon name="chevron right" />
-                        </Button>
-                        <Label>Limited</Label>
-                      </Item.Extra>
-                    </Item.Content>
-                  </Item>
+                  {eventState.map((item) => {
+                    return (
+                      <Item>
+                        <Item.Content>
+                          <Item.Header as="a">{item.title}</Item.Header>
+                          <Item.Meta>
+                            <span>{/* {item.start} " - " {item.end} */}</span>
+                          </Item.Meta>
+                          <Item.Description>{item.desc}</Item.Description>
+                          <Item.Extra>
+                            <Link
+                              href="/project?action=detail"
+                              as="/project/detail"
+                            >
+                              <Button floated="right" primary>
+                                Detail
+                                <Icon name="chevron right" />
+                              </Button>
+                            </Link>
+                            <Label>{item.type}</Label>
+                          </Item.Extra>
+                        </Item.Content>
+                      </Item>
+                    );
+                  })}
                 </Item.Group>
               </Container>
             </Segment>

@@ -5,7 +5,6 @@ const FixedMenuLayout = () => (
     <Menu inverted style={{ borderRadius: "0" }}>
       <Container>
         <Menu.Item as="a" header>
-          <Image size="mini" src="/logo.png" style={{ marginRight: "1.5em" }} />
           Project Name
         </Menu.Item>
         <Link href="/dashboard">

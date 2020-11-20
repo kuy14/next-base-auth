@@ -1,9 +1,19 @@
 import { useState } from "react";
-import { Modal, Button, Tab, Icon, List, Reveal } from "semantic-ui-react";
+import { useDispatch, useSelector } from "react-redux";
+import { Modal, Button, Tab, Icon, List } from "semantic-ui-react";
+import { setTeamGroup } from "../../lib/slices/eventSlice";
 
 const TeamModal = (props) => {
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [showAction, setShowAction] = useState("none");
+  const teamGroupState = useSelector((state) => state.events.teamGroup);
+  const newTeamGroup = teamGroupState ?? [];
+
+  const onButtonApply = (name) => {
+    console.log(name);
+  };
+
   const panes = [
     {
       menuItem: "Photography Team",
@@ -14,8 +24,13 @@ const TeamModal = (props) => {
               <List.Icon name="github" size="large" verticalAlign="middle" />
               <List.Content>
                 <List.Header as="a">
-                  Semantic-Org/Semantic-UI{" "}
-                  <Button style={{ float: "right" }}>Apply</Button>
+                  Nana Photography{" "}
+                  <Button
+                    onClick={onButtonApply("Nana Photography")}
+                    style={{ float: "right" }}
+                  >
+                    Apply
+                  </Button>
                 </List.Header>
                 <List.Description as="a">Updated 10 mins ago </List.Description>
               </List.Content>
@@ -24,8 +39,13 @@ const TeamModal = (props) => {
               <List.Icon name="github" size="large" verticalAlign="middle" />
               <List.Content>
                 <List.Header as="a">
-                  Semantic-Org/Semantic-UI-Docs{" "}
-                  <Button style={{ float: "right" }}>Apply</Button>
+                  Nini Photography{" "}
+                  <Button
+                    onClick={onButtonApply("Nini Photography")}
+                    style={{ float: "right" }}
+                  >
+                    Apply
+                  </Button>
                 </List.Header>
                 <List.Description as="a">Updated 22 mins ago</List.Description>
               </List.Content>
@@ -34,8 +54,13 @@ const TeamModal = (props) => {
               <List.Icon name="github" size="large" verticalAlign="middle" />
               <List.Content>
                 <List.Header as="a">
-                  Semantic-Org/Semantic-UI-Meteor{" "}
-                  <Button style={{ float: "right" }}>Apply</Button>
+                  Nunu Photography{" "}
+                  <Button
+                    onClick={onButtonApply("Nunu Photography")}
+                    style={{ float: "right" }}
+                  >
+                    Apply
+                  </Button>
                 </List.Header>
                 <List.Description as="a">Updated 34 mins ago</List.Description>
               </List.Content>
@@ -54,8 +79,7 @@ const TeamModal = (props) => {
               <List.Icon name="github" size="large" verticalAlign="middle" />
               <List.Content>
                 <List.Header as="a">
-                  Semantic-Org/Semantic-UI{" "}
-                  <Button style={{ float: "right" }}>Apply</Button>
+                  Editor 1 <Button style={{ float: "right" }}>Apply</Button>
                 </List.Header>
                 <List.Description as="a">Updated 10 mins ago </List.Description>
               </List.Content>
@@ -64,8 +88,7 @@ const TeamModal = (props) => {
               <List.Icon name="github" size="large" verticalAlign="middle" />
               <List.Content>
                 <List.Header as="a">
-                  Semantic-Org/Semantic-UI-Docs{" "}
-                  <Button style={{ float: "right" }}>Apply</Button>
+                  Editor 2 <Button style={{ float: "right" }}>Apply</Button>
                 </List.Header>
                 <List.Description as="a">Updated 22 mins ago</List.Description>
               </List.Content>
@@ -74,8 +97,7 @@ const TeamModal = (props) => {
               <List.Icon name="github" size="large" verticalAlign="middle" />
               <List.Content>
                 <List.Header as="a">
-                  Semantic-Org/Semantic-UI-Meteor{" "}
-                  <Button style={{ float: "right" }}>Apply</Button>
+                  Editor 3 <Button style={{ float: "right" }}>Apply</Button>
                 </List.Header>
                 <List.Description as="a">Updated 34 mins ago</List.Description>
               </List.Content>
@@ -103,8 +125,7 @@ const TeamModal = (props) => {
               <List.Icon name="github" size="large" verticalAlign="middle" />
               <List.Content>
                 <List.Header as="a">
-                  Semantic-Org/Semantic-UI-Docs{" "}
-                  <Button style={{ float: "right" }}>Apply</Button>
+                  Makeup 2 <Button style={{ float: "right" }}>Apply</Button>
                 </List.Header>
                 <List.Description as="a">Updated 22 mins ago</List.Description>
               </List.Content>
@@ -113,8 +134,7 @@ const TeamModal = (props) => {
               <List.Icon name="github" size="large" verticalAlign="middle" />
               <List.Content>
                 <List.Header as="a">
-                  Semantic-Org/Semantic-UI-Meteor{" "}
-                  <Button style={{ float: "right" }}>Apply</Button>
+                  Makeup 3 <Button style={{ float: "right" }}>Apply</Button>
                 </List.Header>
                 <List.Description as="a">Updated 34 mins ago</List.Description>
               </List.Content>
@@ -148,5 +168,7 @@ const TeamModal = (props) => {
     </Modal>
   );
 };
+
+export const passing = { name: "test" };
 
 export default TeamModal;
