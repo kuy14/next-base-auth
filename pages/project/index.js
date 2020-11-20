@@ -19,14 +19,12 @@ const Project = () => {
   const [contentTitle, setContentTitle] = useState("");
 
   const eventState = useSelector((state) => state.events.events);
-  console.log(eventState);
-
   const ContentRender = () => {
     switch (router.query.action) {
       case "create":
         return <CreateProject />;
       case "detail":
-        return <DetailProject />;
+        return <DetailProject projectId={router.query.id} />;
       default:
         return <h1>Dynamic Content</h1>;
     }
@@ -50,12 +48,14 @@ const Project = () => {
                         <Item.Content>
                           <Item.Header as="a">{item.title}</Item.Header>
                           <Item.Meta>
-                            <span>{/* {item.start} " - " {item.end} */}</span>
+                            <span>
+                              {item.start.toString()} - {item.end.toString()}
+                            </span>
                           </Item.Meta>
                           <Item.Description>{item.desc}</Item.Description>
                           <Item.Extra>
                             <Link
-                              href="/project?action=detail"
+                              href={`/project?action=detail&id=${item.id}`}
                               as="/project/detail"
                             >
                               <Button floated="right" primary>

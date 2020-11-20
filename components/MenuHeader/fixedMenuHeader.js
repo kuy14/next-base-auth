@@ -5,7 +5,7 @@ const FixedMenuLayout = () => (
     <Menu inverted style={{ borderRadius: "0" }}>
       <Container>
         <Menu.Item as="a" header>
-          Project Name
+          Project Management
         </Menu.Item>
         <Link href="/dashboard">
           <Menu.Item>Dashboard</Menu.Item>
