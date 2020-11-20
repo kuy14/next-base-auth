@@ -3,24 +3,17 @@ import requiredAuth from "../../components/requiredAuth/requiredAuth";
 import { useDispatch } from "react-redux";
 import store from "../../store";
 import { doLogout } from "../../lib/slices/userSlice";
+import { useState } from "react";
+import Link from "next/link";
+import FixedMenuLayout from "../../components/MenuHeader/fixedMenuHeader";
 
-const Dashboard = () => {
-  const dispatch = useDispatch();
+const SidebarExampleSidebar = () => {
   return (
     <>
-      <Head>
-        <title>Dashboard | Base Auth with redux toolkit</title>
-      </Head>
-      <h1>Welcome to Dashboard</h1>
-      <button
-        onClick={() => {
-          dispatch(doLogout());
-        }}
-      >
-        Logout
-      </button>
+      <FixedMenuLayout />
+      <h1>Dashboard</h1>
     </>
   );
 };
 
-export default requiredAuth(Dashboard);
+export default SidebarExampleSidebar;
