@@ -7,7 +7,7 @@ export default [
   },
   {
     id: 15,
-    title: "Wedding Event",
+    title: "Meeting Event",
     start: new Date(2020, 10, 18, 7, 0, 0),
     end: new Date(2020, 10, 20, 19, 30, 0),
   },

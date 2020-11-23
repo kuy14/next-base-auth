@@ -18,6 +18,9 @@ const FixedMenuLayout = () => (
             <Dropdown.Item>Log Out</Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Header>PROJECT SETUP</Dropdown.Header>
+            <Link href="/chat">
+              <Dropdown.Item>Chat Group</Dropdown.Item>
+            </Link>
             <Link href="/project">
               <Dropdown.Item>My Project</Dropdown.Item>
             </Link>
