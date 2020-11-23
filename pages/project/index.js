@@ -9,10 +9,14 @@ import {
   Label,
 } from "semantic-ui-react";
 import Link from "next/link";
+import Head from "next/head";
+import GoogleFonts from "next-google-fonts";
 import { useRouter } from "next/router";
 import { CreateProject, DetailProject } from "../../components/Project/index";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { Fragment } from "react";
+import styles from "../../styles/Project.module.css";
 
 const Project = () => {
   const router = useRouter();
@@ -32,8 +36,14 @@ const Project = () => {
 
   return (
     <>
+      <Fragment>
+        <GoogleFonts href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,600;0,700;1,400&display=swap" />
+        <Head>
+          <title>Project Manager</title>
+        </Head>
+      </Fragment>
       <FixedMenuLayout />
-      <Grid container stackable style={{ marginTop: "10px" }}>
+      <Grid container stackable style={{ marginTop: "10px" }} className="fonts">
         <Grid.Column width={5}>
           <Segment.Group>
             <Segment>
@@ -46,7 +56,9 @@ const Project = () => {
                     return (
                       <Item>
                         <Item.Content>
-                          <Item.Header as="a">{item.title}</Item.Header>
+                          <Item.Header as="a" className={styles.projectTitle}>
+                            {item.title}
+                          </Item.Header>
                           <Item.Meta>
                             <span>
                               {item.start.toString()} - {item.end.toString()}
@@ -58,7 +70,7 @@ const Project = () => {
                               href={`/project?action=detail&id=${item.id}`}
                               as="/project/detail"
                             >
-                              <Button floated="right" primary>
+                              <Button floated="right" primary size="mini">
                                 Detail
                                 <Icon name="chevron right" />
                               </Button>
@@ -81,9 +93,6 @@ const Project = () => {
         </Grid.Column>
         <Grid.Column width={11}>
           <Segment.Group>
-            <Segment>
-              <h4>{contentTitle}</h4>
-            </Segment>
             <Segment>
               <ContentRender />
             </Segment>

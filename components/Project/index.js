@@ -22,6 +22,7 @@ export const CreateProject = () => {
   const [projectType, setProjectType] = useState("");
   const [projectBudget, setProjectBudget] = useState("");
   const [projectDescription, setProjectDescription] = useState("");
+  const [projectStatus, setProjectStatus] = useState("");
 
   const [startDate, setStartDate] = useState(
     setHours(setMinutes(new Date(), 0), 0)
@@ -51,9 +52,43 @@ export const CreateProject = () => {
         desc: projectDescription,
         budget: projectBudget,
         type: projectType,
+        status: projectStatus,
       })
     );
     e.target.reset();
+  };
+
+  const eventStyleGetter = (event) => {
+    var style = {};
+    switch (event.status) {
+      case "done":
+        style = {
+          border: "2px solid #007E33",
+        };
+        break;
+      case "new":
+        style = {
+          border: "2px solid #4B515D",
+        };
+        break;
+      case "progress":
+        style = {
+          border: "2px solid #4285F4",
+        };
+        break;
+      case "cancelled":
+        style = {
+          border: "2px solid #ff4444",
+        };
+        break;
+      default:
+        style = {
+          border: "2px solid #4B515D",
+        };
+    }
+    return {
+      style: style,
+    };
   };
 
   return (
@@ -62,18 +97,54 @@ export const CreateProject = () => {
         <Grid.Column>
           <div>
             <h3> Create Project</h3>
-            <Calendar
-              localizer={localizer}
-              events={event}
-              selectable
-              onSelectSlot={(slotInfo) => onSlotChange(slotInfo)}
-              defaultDate={new Date()}
-              startAccessor="start"
-              endAccessor="end"
-              style={{ minHeight: "500px" }}
-            />
+            <Grid centered container columns={1}>
+              <Grid.Column width={14}>
+                <Calendar
+                  localizer={localizer}
+                  events={event}
+                  selectable
+                  onSelectSlot={(slotInfo) => onSlotChange(slotInfo)}
+                  defaultDate={new Date()}
+                  startAccessor="start"
+                  endAccessor="end"
+                  style={{ minHeight: "405px", marginBottom: "10px" }}
+                  eventPropGetter={eventStyleGetter}
+                />
+                <Label>
+                  <Label circular color="red" empty key="1" /> Cancelled Project
+                </Label>
+                <Label>
+                  <Label
+                    circular
+                    style={{ backgroundColor: "rgb(0, 126, 51)" }}
+                    empty
+                    key="2"
+                  />{" "}
+                  Finished Project
+                </Label>
+                <Label>
+                  <Label circular color="blue" empty key="3" /> On Progress
+                </Label>
+                <Label>
+                  <Label
+                    circular
+                    style={{ backgroundColor: "#4B515D" }}
+                    empty
+                    key="4"
+                  />{" "}
+                  New Project
+                </Label>
+              </Grid.Column>
+            </Grid>
           </div>
         </Grid.Column>
+        <Grid centered container columns={1}>
+          <Grid.Column>
+            <div></div>
+            <div></div>
+          </Grid.Column>
+        </Grid>
+
         <Grid.Column>
           <h5>Teams</h5>
         </Grid.Column>
@@ -129,6 +200,18 @@ export const CreateProject = () => {
               placeholder="Project Budget"
               onChange={(event) => {
                 setProjectBudget(event.target.value);
+              }}
+            ></Form.Input>
+          </Grid.Column>
+          <Grid.Column>
+            <Form.Input
+              fluid
+              icon="money"
+              name="projectStatus"
+              iconPosition="left"
+              placeholder="Project Status"
+              onChange={(event) => {
+                setProjectStatus(event.target.value);
               }}
             ></Form.Input>
           </Grid.Column>
