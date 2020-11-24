@@ -2,7 +2,6 @@ import FixedMenuLayout from "../../components/MenuHeader/fixedMenuHeader";
 import {
   Segment,
   Grid,
-  List,
   Image,
   Form,
   Input,
@@ -11,21 +10,18 @@ import {
   Dimmer,
   Header,
 } from "semantic-ui-react";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import styles from "../../styles/Chat.module.css";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setChat } from "../../lib/slices/chatSlice";
+import ChatList from "../../components/Chat/ChatList";
 
 const ChatPage = () => {
   const router = useRouter();
 
   const [message, setMessage] = useState("");
-  const [file, setFile] = useState("");
   let currentUser = 0;
-  const [senderChat, setSenderChat] = useState([]);
-  const [receiverChat, setReceiverChat] = useState([]);
   const [sortedChat, setSortedChat] = useState([]);
   const [handleState, setHandleState] = useState("");
   const [base64File, setBase64File] = useState("");
@@ -118,6 +114,102 @@ const ChatPage = () => {
     handleClose();
   };
 
+  const renderChatContent = () => {
+    return (
+      <Grid.Column width={16}>
+        {sortedChat.map((item) => {
+          if (item.isSender === false && item.chatType === "text") {
+            return (
+              <div className={styles.receive_chat}>
+                <Image
+                  src="https://placeimg.com/640/480/people"
+                  avatar
+                  style={{ display: "inline-block" }}
+                />
+
+                <span> {item.message}</span>
+                <small className={styles.receive_chat_date}>
+                  {item.timestamp.getDate() +
+                    "-" +
+                    (item.timestamp.getMonth() + 1) +
+                    "-" +
+                    item.timestamp.getFullYear() +
+                    " " +
+                    item.timestamp.toTimeString().substr(0, 5)}
+                </small>
+              </div>
+            );
+          }
+          if (item.isSender === true && item.chatType === "text") {
+            return (
+              <div className={styles.sent_chat}>
+                <div className={styles.sent_chat_content}>
+                  <span> {item.message}</span>
+                  <small className={styles.sent_chat_date}>
+                    {item.timestamp.getDate() +
+                      "-" +
+                      (item.timestamp.getMonth() + 1) +
+                      "-" +
+                      item.timestamp.getFullYear() +
+                      " " +
+                      item.timestamp.toTimeString().substr(0, 5)}
+                  </small>
+                </div>
+              </div>
+            );
+          }
+          if (item.isSender === false && item.chatType === "image") {
+            return (
+              <div className={styles.receive_chat}>
+                <Image
+                  src="https://placeimg.com/640/480/people"
+                  avatar
+                  style={{ display: "inline-block" }}
+                />
+
+                <Image
+                  className={styles.receive_chat_image}
+                  src={item.message}
+                ></Image>
+                <small className={styles.receive_chat_date}>
+                  {item.timestamp.getDate() +
+                    "-" +
+                    (item.timestamp.getMonth() + 1) +
+                    "-" +
+                    item.timestamp.getFullYear() +
+                    " " +
+                    item.timestamp.toTimeString().substr(0, 5)}
+                </small>
+              </div>
+            );
+          }
+          if (item.isSender === true && item.chatType === "image") {
+            return (
+              <div className={styles.sent_chat}>
+                <div className={styles.sent_chat_content}>
+                  <Image
+                    className={styles.sent_chat_image}
+                    src={item.message}
+                  ></Image>
+                  <small className={styles.sent_chat_date}>
+                    {item.timestamp.getDate() +
+                      "-" +
+                      (item.timestamp.getMonth() + 1) +
+                      "-" +
+                      item.timestamp.getFullYear() +
+                      " " +
+                      item.timestamp.toTimeString().substr(0, 5)}
+                  </small>
+                </div>
+              </div>
+            );
+          }
+        })}
+        <Image />
+      </Grid.Column>
+    );
+  };
+
   return (
     <>
       <FixedMenuLayout />
@@ -128,32 +220,7 @@ const ChatPage = () => {
               <h4>Room Group 3 Users</h4>
             </Segment>
             <Segment>
-              <List divided selection animated verticalAlign="middle">
-                <Link href={`/chat?id=1`} as="/chat/1">
-                  <List.Item>
-                    <Image avatar src="https://placeimg.com/640/480/people" />
-                    <List.Content>
-                      <List.Header as="a">User 1</List.Header>
-                    </List.Content>
-                  </List.Item>
-                </Link>
-                <Link href={`/chat?id=2`} as="/chat/2">
-                  <List.Item>
-                    <Image avatar src="https://placeimg.com/640/480/people" />
-                    <List.Content>
-                      <List.Header as="a">User 2</List.Header>
-                    </List.Content>
-                  </List.Item>
-                </Link>
-                <Link href={`/chat?id=3`} as="/chat/3">
-                  <List.Item>
-                    <Image avatar src="https://placeimg.com/640/480/people" />
-                    <List.Content>
-                      <List.Header as="a">User 3</List.Header>
-                    </List.Content>
-                  </List.Item>
-                </Link>
-              </List>
+              <ChatList />
             </Segment>
           </Segment.Group>
         </Grid.Column>
@@ -168,97 +235,7 @@ const ChatPage = () => {
             </Segment>
             <Segment>
               <Grid container centered stackable className={styles.chatbox}>
-                <Grid.Column width={16}>
-                  {sortedChat.map((item) => {
-                    if (item.isSender === false && item.chatType === "text") {
-                      return (
-                        <div className={styles.receive_chat}>
-                          <Image
-                            src="https://placeimg.com/640/480/people"
-                            avatar
-                            style={{ display: "inline-block" }}
-                          />
-
-                          <span> {item.message}</span>
-                          <small className={styles.receive_chat_date}>
-                            {item.timestamp.getDate() +
-                              "-" +
-                              (item.timestamp.getMonth() + 1) +
-                              "-" +
-                              item.timestamp.getFullYear() +
-                              " " +
-                              item.timestamp.toTimeString().substr(0, 5)}
-                          </small>
-                        </div>
-                      );
-                    }
-                    if (item.isSender === true && item.chatType === "text") {
-                      return (
-                        <div className={styles.sent_chat}>
-                          <div className={styles.sent_chat_content}>
-                            <span> {item.message}</span>
-                            <small className={styles.sent_chat_date}>
-                              {item.timestamp.getDate() +
-                                "-" +
-                                (item.timestamp.getMonth() + 1) +
-                                "-" +
-                                item.timestamp.getFullYear() +
-                                " " +
-                                item.timestamp.toTimeString().substr(0, 5)}
-                            </small>
-                          </div>
-                        </div>
-                      );
-                    }
-                    if (item.isSender === false && item.chatType === "image") {
-                      return (
-                        <div className={styles.receive_chat}>
-                          <Image
-                            src="https://placeimg.com/640/480/people"
-                            avatar
-                            style={{ display: "inline-block" }}
-                          />
-
-                          <Image
-                            className={styles.receive_chat_image}
-                            src={item.message}
-                          ></Image>
-                          <small className={styles.receive_chat_date}>
-                            {item.timestamp.getDate() +
-                              "-" +
-                              (item.timestamp.getMonth() + 1) +
-                              "-" +
-                              item.timestamp.getFullYear() +
-                              " " +
-                              item.timestamp.toTimeString().substr(0, 5)}
-                          </small>
-                        </div>
-                      );
-                    }
-                    if (item.isSender === true && item.chatType === "image") {
-                      return (
-                        <div className={styles.sent_chat}>
-                          <div className={styles.sent_chat_content}>
-                            <Image
-                              className={styles.sent_chat_image}
-                              src={item.message}
-                            ></Image>
-                            <small className={styles.sent_chat_date}>
-                              {item.timestamp.getDate() +
-                                "-" +
-                                (item.timestamp.getMonth() + 1) +
-                                "-" +
-                                item.timestamp.getFullYear() +
-                                " " +
-                                item.timestamp.toTimeString().substr(0, 5)}
-                            </small>
-                          </div>
-                        </div>
-                      );
-                    }
-                  })}
-                  <Image />
-                </Grid.Column>
+                {renderChatContent()}
               </Grid>
             </Segment>
             <Segment>
