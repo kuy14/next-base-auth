@@ -33,7 +33,6 @@ const Project = () => {
         return <h1>Dynamic Content</h1>;
     }
   };
-
   return (
     <>
       <Fragment>

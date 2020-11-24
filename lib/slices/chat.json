@@ -1,0 +1,41 @@
+{
+  "chat": [
+    {
+      "123": {
+        "roomId": "group1",
+        "chatTitle": "Group Chat 1",
+        "chatPerson": [
+          {
+            "userId": 1,
+            "name": "john",
+            "profileImage": "https://placeimg.com/640/480/people"
+          },
+          {
+            "userId": 2,
+            "name": "jenny",
+            "profileImage": "https://placeimg.com/640/480/people"
+          },
+          {
+            "userId": 3,
+            "name": "danny",
+            "profileImage": "https://placeimg.com/640/480/people"
+          }
+        ],
+        "chatContent": [
+          {
+            "timestamp": "",
+            "userId": 1,
+            "message": "chat test ...",
+            "chatType": "text"
+          },
+          {
+            "timestamp": "",
+            "userId": 2,
+            "message": "chat test too ...",
+            "chatType": "text"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,3 +1,10 @@
+.chatbox {
+  margin-top: 10px;
+  min-height: 450px;
+  max-height: 450px;
+  overflow: auto;
+}
+
 .receive_chat {
   display: block;
   margin-bottom: 20px;
@@ -10,6 +17,20 @@
   border-radius: 5px;
 }
 
+.receive_chat_image {
+  max-width: 50% !important;
+  display: inline-block !important;
+  margin-left: 10px;
+  border-radius: 5px;
+}
+
+.sent_chat_image {
+  border-radius: 5px;
+}
+
+.image_preview {
+  border-radius: 5px;
+}
 .receive_chat_date {
   display: block;
   margin-left: 45px;
@@ -17,8 +38,13 @@
 }
 
 .sent_chat {
-  display: block;
+  display: flow-root;
+  margin-bottom: 10px;
+}
+
+.sent_chat_content {
   float: right;
+  max-width: 50%;
 }
 
 .sent_chat span {
@@ -28,10 +54,19 @@
   display: block;
   color: #fff;
   border-radius: 5px;
+  text-align: end;
 }
 
 .sent_chat_date {
   display: block;
   text-align: end;
   margin-top: 5px;
+}
+
+.chat_inputbox {
+  width: 80%;
+}
+
+.btn_chat_send {
+  margin-left: 5px !important;
 }
